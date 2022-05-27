@@ -10,11 +10,11 @@ Starlark, and more specifically `pixlet 0.16.0` does not support external files,
 :-------------------------:|:-------------------------:
 | ![Alt](./images/youtubeStatsSmall.png "youtube stats") | ![Alt](./images/latestVideo.jpg "latest video") |
  
-## Static (Latest Video)
+## Static
 <p align="center"><img src="./images/latestVideo.jpg" alt="latest video stats"><br /><span align="center"><i>Latest Video Details</i></span>
 </p>
 
-## Animation (Channel Stats)
+## Animation
 <p align="center"><img src="./images/youtubeStats.gif" alt="channel stats"><br /><span align="center"><i>YouTube Channel Details</i></span>
 </p>
 
