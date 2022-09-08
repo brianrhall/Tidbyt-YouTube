@@ -10,6 +10,7 @@ YOUTUBE_IMG = base64.decode("""iVBORw0KGgoAAAANSUhEUgAAAA0AAAAJCAYAAADpeqZqAAAAA
 # set colors
 white_color="#FFFFFF" # white
 
+# insert commas in values
 def commas(value):
 	converted_value = str(value)
 	output = ""
