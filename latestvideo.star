@@ -1,6 +1,7 @@
 load("render.star", "render")
 load("encoding/base64.star", "base64")
 load("http.star", "http")
+load("humanize.star", "humanize")
 
 # Replace CHANNEL_ID and API_KEY with your values
 YOUTUBE_VIDEO_API = "https://www.googleapis.com/youtube/v3/search?key=API_KEY&channelId=CHANNEL_ID&part=snippet,id&order=date&maxResults=1"
@@ -9,22 +10,6 @@ YOUTUBE_IMG = base64.decode("""iVBORw0KGgoAAAANSUhEUgAAAA0AAAAJCAYAAADpeqZqAAAAA
 
 # set colors
 white_color="#FFFFFF" # white
-
-# insert commas in values
-def commas(value):
-	converted_value = str(value)
-	output = ""
-	i = 0
-	length = len(converted_value)
-	while i < length:
-		count = 0
-		if (count < 2):
-			output = converted_value[length - (i + 1)] + output
-			count += 1
-			i += 1
-		if (i % 3 == 0) and (i < length):
-			output = "," + output
-	return output
 
 def main():
 
@@ -35,21 +20,20 @@ def main():
 	videoID = VideoInfo.json()["items"][0]["id"]["videoId"]
 	videoTitle = VideoInfo.json()["items"][0]["snippet"]["title"]
 
-	# Replace API_KEY with your value
-	YOUTUBE_STATS_API = "https://www.googleapis.com/youtube/v3/videos?part=statistics&id=" + videoID + "&key=API_KEY"
+	YOUTUBE_STATS_API = "https://www.googleapis.com/youtube/v3/videos?part=statistics&id=" + videoID + "&key=AIzaSyCA0isEyNnFd8tNGRn-mG0uD92R1Kf01Jc"
 
 	YouTubeData = http.get(YOUTUBE_STATS_API)
 	if YouTubeData.status_code != 200:
 		fail("Random number generation failed with status %d", YouTubeData.status_code)
 
 	viewCount = YouTubeData.json()["items"][0]["statistics"]["viewCount"]
-	viewCount = commas(viewCount)
+	viewCount = humanize.comma(int(viewCount))
 
 	likeCount = YouTubeData.json()["items"][0]["statistics"]["likeCount"]
-	likeCount = commas(likeCount)
+	likeCount = humanize.comma(int(likeCount))
 
 	commentCount = YouTubeData.json()["items"][0]["statistics"]["commentCount"]
-	commentCount = commas(commentCount)
+	commentCount = humanize.comma(int(commentCount))
 	
 	return render.Root(
 	delay = 60,

@@ -1,6 +1,7 @@
 load("render.star", "render")
 load("encoding/base64.star", "base64")
 load("http.star", "http")
+load("humanize.star", "humanize")
 
 # Replace CHANNEL_ID and API_KEY with your values
 YOUTUBE_INFO_API = "https://www.googleapis.com/youtube/v3/channels?part=snippet&id=CHANNEL_ID&key=API_KEY"
@@ -10,22 +11,6 @@ YOUTUBE_IMG = base64.decode("""iVBORw0KGgoAAAANSUhEUgAAAA0AAAAJCAYAAADpeqZqAAAAA
 
 # set colors
 white_color="#FFFFFF" # white
-
-# insert commas in values
-def commas(value):
-	converted_value = str(value)
-	output = ""
-	i = 0
-	length = len(converted_value)
-	while i < length:
-		count = 0
-		if (count < 2):
-			output = converted_value[length - (i + 1)] + output
-			count += 1
-			i += 1
-		if (i % 3 == 0) and (i < length):
-			output = "," + output
-	return output
 
 def main():
 
@@ -40,13 +25,13 @@ def main():
 	name = YouTubeInfo.json()["items"][0]["snippet"]["title"]
 
 	subs = YouTubeData.json()["items"][0]["statistics"]["subscriberCount"]
-	subs = commas(subs)
+	subs = humanize.comma(int(subs))
 
 	views = YouTubeData.json()["items"][0]["statistics"]["viewCount"]
-	views = commas(views)
+	views = humanize.comma(int(views))
 
 	vids = YouTubeData.json()["items"][0]["statistics"]["videoCount"]
-	vids = commas(vids)
+	vids = humanize.comma(int(vids))
 	
 	return render.Root(
 	delay = 60,
